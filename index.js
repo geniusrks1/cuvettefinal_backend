@@ -11,6 +11,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use("/api/v1/users",require("./routes/user"));
+app.use("/api/v1/folders",require("./routes/folder"));
+app.use("api/v1/forms",require("./routes/form"));
 
 app.get('/',(req,res)=>{
     res.status(200).json({

@@ -29,7 +29,7 @@ const protectedMiddleware = async (req, res, next) => {
     // Verify the token
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET_KEY); // This will throw an error if token is invalid/expired
+      decoded = jwt.verify(token, process.env.JWT_SECRET_KEY); 
     } catch (err) {
       if (err.name === 'TokenExpiredError') {
         return res.status(401).json({

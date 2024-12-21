@@ -23,20 +23,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
       select: false,
-    },
-    phoneNumber: {
-      type: String,
-      unique: true,
-      sparse: true,
-      validate: {
-        validator: function (val) {
-          return /^[0-9]{10}$/.test(val);
-        },
-        message: (props) => `${props.value} is not a valid phone number!`,
-      },
-    },
-    address: { type: String },
-    cart: [{ type: mongoose.Schema.Types.ObjectId, ref: "Cart" }],
+    }
   },
   { timestamps: true }
 );

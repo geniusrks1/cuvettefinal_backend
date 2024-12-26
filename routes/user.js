@@ -14,8 +14,16 @@ const formatResponse = (status, message, data = null) => ({ status, message, dat
 // Register Route
 router.post("/register", async (req, res) => {
   try {
-    console.log("api called");
-    const { email, name, password, phoneNumber } = req.body;
+   
+    const { email, name, password, confirmPassword } = req.body;
+
+    if (!email || !name || !password || !confirmPassword) {
+      return res.status(400).json(formatResponse("error", "All fields are required"));
+    }
+
+    if (password !== confirmPassword) {
+      return res.status(400).json(formatResponse("error", "Passwords do not match"));
+    }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -26,13 +34,14 @@ router.post("/register", async (req, res) => {
       email,
       name,
       password,
-      phoneNumber: phoneNumber || null,
     });
+
     res.status(201).json(formatResponse("success", "User registered successfully", { user }));
   } catch (err) {
     res.status(500).json(formatResponse("error", err.message));
   }
 });
+
 
 // Login Route
 router.post("/login", async (req, res) => {

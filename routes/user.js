@@ -15,15 +15,15 @@ const formatResponse = (status, message, data = null) => ({ status, message, dat
 router.post("/register", async (req, res) => {
   try {
    
-    const { email, name, password, confirmPassword } = req.body;
+    const { email, name, password} = req.body;
 
-    if (!email || !name || !password || !confirmPassword) {
+    if (!email || !name || !password ) {
       return res.status(400).json(formatResponse("error", "All fields are required"));
     }
 
-    if (password !== confirmPassword) {
-      return res.status(400).json(formatResponse("error", "Passwords do not match"));
-    }
+    // if (password !== confirmPassword) {
+    //   return res.status(400).json(formatResponse("error", "Passwords do not match"));
+    // }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -93,7 +93,7 @@ router.get("/", protectedMiddleware, async (req, res) => {
 // Update User Details
 router.patch("/", protectedMiddleware, async (req, res) => {
   try {
-    const { name, newPassword, oldPassword, email, phoneNumber } = req.body;
+    const { name, newPassword, oldPassword, email } = req.body;
     let updateFields = {};
 
     if (newPassword) {
@@ -118,7 +118,7 @@ router.patch("/", protectedMiddleware, async (req, res) => {
     }
 
     if (name) updateFields.name = name;
-    if (phoneNumber) updateFields.phoneNumber = phoneNumber;
+  
 
     const updatedUser = await User.findByIdAndUpdate(req.user._id, updateFields, {
       new: true,

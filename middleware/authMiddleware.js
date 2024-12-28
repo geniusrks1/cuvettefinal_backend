@@ -1,13 +1,14 @@
+// middleware/authMiddleware.js
 const jwt = require("jsonwebtoken");
+const User = require("../models/userModel");
 const dotenv = require("dotenv");
-const { User } = require('../schema/user.schema');
 dotenv.config();
 
-const protectedMiddleware = async (req, res, next) => {
+
+const authMiddleware = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
 
-    console.log(authorization);
     if (!authorization) {
       return res.status(401).json({
         status: 'error',
@@ -16,7 +17,7 @@ const protectedMiddleware = async (req, res, next) => {
     }
 
   
-    // const temptoken = authorization.split(' ')[1];
+   
     const token = authorization;
     if (!token) {
       console.log(token);
@@ -56,7 +57,7 @@ const protectedMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.error('Error in protectedMiddleware:', error);
+    console.error('Error in authMiddleware:', error);
     res.status(500).json({
       status: 'error',
       message: error.message || 'An error occurred. Please try again.',
@@ -64,6 +65,4 @@ const protectedMiddleware = async (req, res, next) => {
   }
 };
 
-
-
-module.exports = protectedMiddleware;
+module.exports = authMiddleware;

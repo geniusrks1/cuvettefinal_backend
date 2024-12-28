@@ -3,6 +3,7 @@ const mongoose=require('mongoose');
 const dotenv=require('dotenv');
 const cors=require('cors');
 const app=express();
+const errorHandler=require("./middleware/errorHandler")
 app.use(cors());
 dotenv.config();
 
@@ -10,9 +11,13 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use("/api/v1/users",require("./routes/user"));
-app.use("/api/v1/folders",require("./routes/folder"));
-app.use("api/v1/forms",require("./routes/form"));
+// Routes
+app.use("/api/v1/auth", require("./routes/authRoutes"));
+app.use("/api/v1/forms", require("./routes/formRoutes"));
+app.use("/api/v1/folders", require("./routes/folderRoutes"));
+
+app.use(errorHandler);
+
 
 app.get('/',(req,res)=>{
     res.status(200).json({

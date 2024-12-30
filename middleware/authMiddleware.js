@@ -7,9 +7,9 @@ dotenv.config();
 
 const authMiddleware = async (req, res, next) => {
   try {
-    const { authorization } = req.headers;
+    const { Authorization } = req.headers;
 
-    if (!authorization) {
+    if (!Authorization) {
       return res.status(401).json({
         status: 'error',
         message: 'Please login to access this route',
@@ -18,7 +18,7 @@ const authMiddleware = async (req, res, next) => {
 
   
    
-    const token = authorization;
+    const token = Authorization;
     if (!token) {
       console.log(token);
       return res.status(401).json({

@@ -29,8 +29,7 @@ exports.login = async (req, res) => {
   }
   try {
    
-    // Check if user exists
-    // const user = await User.findOne({ email });
+ 
     const user = await User.findOne({ email }).select("+password");
     if (!user) {
       return res.status(400).json(formatResponse("error", "Email not registered"));

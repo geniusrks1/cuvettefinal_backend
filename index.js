@@ -22,8 +22,8 @@ app.use(errorHandler);
 app.get('/',(req,res)=>{
     res.status(200).json({
 message:"Welcome to apis",
-api1:"visit /api/v1/users/register",
-api2:"visit /api/v1/users/login",
+api1:"visit /api/v1/auth/register",
+api2:"visit /api/v1/auth/login",
     })
 })
 

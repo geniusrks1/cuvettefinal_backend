@@ -1,9 +1,9 @@
 const Form = require("../models/formModel");
 
 exports.createForm = async (req, res) => {
-  const { title, description, questions } = req.body;
+  const { title } = req.body;
   try {
-    const form = await Form.create({ title, description, questions, owner: req.user.id });
+    const form = await Form.create({ title,  owner: req.user.id });
     res.status(201).json(form);
   } catch (error) {
     res.status(400).json({ message: "Error creating form" });
@@ -20,6 +20,7 @@ exports.getForms = async (req, res) => {
 };
 
 exports.deleteForm = async (req, res) => {
+ 
   try {
     await Form.findByIdAndDelete(req.params.id);
     res.json({ message: "Form deleted successfully" });

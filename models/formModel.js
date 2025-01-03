@@ -5,15 +5,15 @@ const formSchema = new mongoose.Schema({
   description: { type: String },
   questions: [
     {
-      question: { type: String, required: true },
-      type: { type: String, required: true },
+      question: { type: String},
+      type: { type: String },
       options: [{ type: String }],
     },
   ],
   responses: [
     {
-      name: { type: String, required: true },
-      email: { type: String, required: true },
+      name: { type: String },
+      email: { type: String},
       answers: [{ type: String }], 
     },
   ],
